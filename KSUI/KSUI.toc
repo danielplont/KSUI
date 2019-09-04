@@ -1,0 +1,7 @@
+## Interface: 11302
+## Version: 0.4
+## Title: KSUI
+## Notes: Default UI Improvements
+## Author: Ishi
+
+KSUI.lua
