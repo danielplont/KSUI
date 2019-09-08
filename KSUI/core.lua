@@ -6,8 +6,8 @@ local ADDON_NAME = ...
 
 -- Frame positions
 local FRAME_POSITIONS = {
-    PLAYER = {X = -450, Y = 300},
-    TARGET = {X = -180, Y = 300},
+    PLAYER = {X = -450, Y = 350},
+    TARGET = {X = -180, Y = 350},
     PARTY  = {X = -700, Y = 400}
 }
 
@@ -339,32 +339,6 @@ local function RegisterEnemyStatusDisplay()
     f:SetScript("OnEvent", UpdateEnemyStatus)
 end
 
-local function DarkenArt()
-    for i, v in pairs({
-        PlayerFrameTexture, TargetFrameTextureFrameTexture, PetFrameTexture,
-        PartyMemberFrame1Texture, PartyMemberFrame2Texture, PartyMemberFrame3Texture,
-        PartyMemberFrame4Texture, PartyMemberFrame1PetFrameTexture,
-        PartyMemberFrame2PetFrameTexture, PartyMemberFrame3PetFrameTexture,
-        PartyMemberFrame4PetFrameTexture, TargetFrameToTTextureFrameTexture,
-        BonusActionBarFrameTexture0, BonusActionBarFrameTexture1, BonusActionBarFrameTexture2,
-        BonusActionBarFrameTexture3, BonusActionBarFrameTexture4, MainMenuBarTexture0,
-        MainMenuBarTexture1, MainMenuBarTexture2, MainMenuBarTexture3, MainMenuMaxLevelBar0,
-        MainMenuMaxLevelBar1, MainMenuMaxLevelBar2, MainMenuMaxLevelBar3, MinimapBorder,
-        CastingBarFrameBorder, TargetFrameSpellBarBorder,
-        MiniMapTrackingButtonBorder, MiniMapLFGFrameBorder, MiniMapBattlefieldBorder,
-        MiniMapMailBorder, MinimapBorderTop, select(1, TimeManagerClockButton:GetRegions())
-    }) do
-        v:SetVertexColor(.2, .2, .2)
-    end
-
-    for i, v in pairs({select(2, TimeManagerClockButton:GetRegions())}) do
-        v:SetVertexColor(1, 1, 1)
-    end
-    for i, v in pairs({MainMenuBarLeftEndCap, MainMenuBarRightEndCap}) do
-        v:SetVertexColor(.15, .15, .15)
-    end
-end
-
 local function RegisterVendorGreys()
     local function SellTrash(self, event)
         if (event == "MERCHANT_SHOW") then
@@ -385,10 +359,6 @@ local function RegisterVendorGreys()
     f:SetScript("OnEvent", SellTrash)
 end
 
------------------------------------------------------------------------------
--- Load the addon                                                          --
------------------------------------------------------------------------------
-
 local function Init(self, event)
     if event == "PLAYER_LOGIN" then
         FixCastingBarVisual()
@@ -398,7 +368,6 @@ local function Init(self, event)
         RegisterHealthbarColors()
         RegisterChatImprovements()
         RegisterEnemyStatusDisplay()
-        DarkenArt()
         RegisterVendorGreys()
 
         DEFAULT_CHAT_FRAME:AddMessage(ADDON_NAME.." loaded")
