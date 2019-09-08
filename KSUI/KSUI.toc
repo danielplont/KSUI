@@ -6,3 +6,4 @@
 
 align.lua
 worldmap.lua
+core.lua
