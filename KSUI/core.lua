@@ -57,10 +57,6 @@ local function FixCastingBarVisual()
     CastingBarFrame.Text:ClearAllPoints()
     CastingBarFrame.Text:SetPoint("CENTER", CastingBarFrame, "CENTER", 0, 0)
 
-    CastingBarFrame.Icon:Show()
-    CastingBarFrame.Icon:SetHeight(22)
-    CastingBarFrame.Icon:SetWidth(22)
-
     CastingBarFrame.Border:SetSize(240, 75)
     CastingBarFrame.Border:Hide()
     CastingBarFrame.BorderShield:Hide()
@@ -369,14 +365,32 @@ local function DarkenArt()
     end
 end
 
+local function RegisterVendorGreys()
+    local function SellTrash(self, event)
+        if (event == "MERCHANT_SHOW") then
+            local bag, slot
+            for bag = 0, 4 do
+                for slot = 0, GetContainerNumSlots(bag) do
+                    local link = GetContainerItemLink(bag, slot)
+                    if link and (select(3, GetItemInfo(link)) == 0) then
+                        UseContainerItem(bag, slot)
+                    end
+                end
+            end
+        end
+    end
+
+    local f = CreateFrame("Frame")
+    f:RegisterEvent("MERCHANT_SHOW")
+    f:SetScript("OnEvent", SellTrash)
+end
+
 -----------------------------------------------------------------------------
 -- Load the addon                                                          --
 -----------------------------------------------------------------------------
 
 local function Init(self, event)
-    if event == "ADDON_LOADED" then
-        LoadSettings()
-    elseif event == "PLAYER_LOGIN" then
+    if event == "PLAYER_LOGIN" then
         FixCastingBarVisual()
         MoveAndScaleFrames()
         HideHitIndicators()
@@ -385,6 +399,7 @@ local function Init(self, event)
         RegisterChatImprovements()
         RegisterEnemyStatusDisplay()
         DarkenArt()
+        RegisterVendorGreys()
 
         DEFAULT_CHAT_FRAME:AddMessage(ADDON_NAME.." loaded")
     end
@@ -392,6 +407,5 @@ end
 
 local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_LOGIN")
-f:RegisterEvent("ADDON_LOADED")
 f:SetScript("OnEvent", Init)
 
