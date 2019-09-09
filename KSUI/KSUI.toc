@@ -10,4 +10,5 @@ core.lua
 questlog.lua
 questloglevels.lua
 range.lua
+reload.lua
 worldmap.lua
