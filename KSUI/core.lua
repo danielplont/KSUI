@@ -1,14 +1,12 @@
------------------------------------------------------------------------------
--- Constants/Variables                                                     --
------------------------------------------------------------------------------
+-- Core UI
 
 local ADDON_NAME = ...
 
 -- Frame positions
 local FRAME_POSITIONS = {
-    PLAYER = {X = -450, Y = 350},
-    TARGET = {X = -180, Y = 350},
-    PARTY  = {X = -700, Y = 400}
+    PLAYER = {X = -450, Y = 300},
+    TARGET = {X = -180, Y = 300},
+    PARTY  = {X = -450, Y = 200}
 }
 
 local CHAT_EVENTS = {
@@ -46,10 +44,6 @@ local CLASS_NAMES = {
 local MANA_COLOR   = {0,       100/255, 240/255}
 local RAGE_COLOR   = {256/255,  30/255,   0/255}
 local ENERGY_COLOR = {255/255, 245/255, 105/255}
-
------------------------------------------------------------------------------
--- Functions                                                               --
------------------------------------------------------------------------------
 
 local function FixCastingBarVisual()
     CastingBarFrame:SetSize(180, 20)
