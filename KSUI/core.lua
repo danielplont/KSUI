@@ -45,39 +45,39 @@ local MANA_COLOR   = {0,       100/255, 240/255}
 local RAGE_COLOR   = {256/255,  30/255,   0/255}
 local ENERGY_COLOR = {255/255, 245/255, 105/255}
 
-local function FixCastingBarVisual()
-    CastingBarFrame:SetSize(180, 20)
+-- local function FixCastingBarVisual()
+--     CastingBarFrame:SetSize(180, 20)
 
-    CastingBarFrame.Text:ClearAllPoints()
-    CastingBarFrame.Text:SetPoint("CENTER", CastingBarFrame, "CENTER", 0, 0)
+--     CastingBarFrame.Text:ClearAllPoints()
+--     CastingBarFrame.Text:SetPoint("CENTER", CastingBarFrame, "CENTER", 0, 0)
 
-    CastingBarFrame.Border:SetSize(240, 75)
-    CastingBarFrame.Border:Hide()
-    CastingBarFrame.BorderShield:Hide()
+--     CastingBarFrame.Border:SetSize(240, 75)
+--     CastingBarFrame.Border:Hide()
+--     CastingBarFrame.BorderShield:Hide()
 
-    CastingBarFrame.Flash:SetSize(240, 75)
+--     CastingBarFrame.Flash:SetSize(240, 75)
 
-    CastingBarFrame.timer = CastingBarFrame:CreateFontString(nil)
-    CastingBarFrame.timer:SetFont(STANDARD_TEXT_FONT, 12, "OUTLINE")
-    CastingBarFrame.timer:SetPoint("TOP", CastingBarFrame, "BOTTOM", 0, 0)
-    CastingBarFrame.update = .1
+--     CastingBarFrame.timer = CastingBarFrame:CreateFontString(nil)
+--     CastingBarFrame.timer:SetFont(STANDARD_TEXT_FONT, 12, "OUTLINE")
+--     CastingBarFrame.timer:SetPoint("TOP", CastingBarFrame, "BOTTOM", 0, 0)
+--     CastingBarFrame.update = .1
 
-    CastingBarFrame:HookScript("OnUpdate", function(self, elapsed)
-        if not self.timer then return end
-        if self.update and self.update < elapsed then
-            if self.casting then
-                self.timer:SetText(format("%2.1f/%1.1f", max(self.maxValue - self.value, 0), self.maxValue))
-            elseif self.channeling then
-                self.timer:SetText(format("%.1f", max(self.value, 0)))
-            else
-                self.timer:SetText("")
-            end
-            self.update = .1
-        else
-            self.update = self.update - elapsed
-        end
-    end)
-end
+--     CastingBarFrame:HookScript("OnUpdate", function(self, elapsed)
+--         if not self.timer then return end
+--         if self.update and self.update < elapsed then
+--             if self.casting then
+--                 self.timer:SetText(format("%2.1f/%1.1f", max(self.maxValue - self.value, 0), self.maxValue))
+--             elseif self.channeling then
+--                 self.timer:SetText(format("%.1f", max(self.value, 0)))
+--             else
+--                 self.timer:SetText("")
+--             end
+--             self.update = .1
+--         else
+--             self.update = self.update - elapsed
+--         end
+--     end)
+-- end
 
 local function MoveAndScaleFrames()
     local positions = FRAME_POSITIONS
@@ -107,7 +107,7 @@ local function MoveAndScaleFrames()
 
     BuffFrame:SetScale(1.15)
     MinimapCluster:SetScale(1.1)
-    CastingBarFrame:SetScale(1.1)
+    -- CastingBarFrame:SetScale(1.1)
     ComboFrame:SetScale(1.2)
     CompactRaidFrameContainer:SetScale(1.1)
     MainMenuBarLeftEndCap:Hide()
@@ -139,29 +139,29 @@ local function RegisterHealthbarColors()
     end)
 end
 
-local function SetBarTextures()
-    local texture = "Interface\\AddOns\\"..ADDON_NAME.."\\bar_textures\\Cupence"
+-- local function SetBarTextures()
+--     local texture = "Interface\\AddOns\\"..ADDON_NAME.."\\bar_textures\\Cupence"
 
-    PlayerFrameHealthBar:SetStatusBarTexture(texture)
-    PlayerFrameManaBar:SetStatusBarTexture(texture)
-    TargetFrameHealthBar:SetStatusBarTexture(texture)
-    TargetFrameManaBar:SetStatusBarTexture(texture)
-    TargetFrameToT.healthbar:SetStatusBarTexture(texture)
-    PetFrameHealthBar:SetStatusBarTexture(texture)
-    PartyMemberFrame1HealthBar:SetStatusBarTexture(texture)
-    PartyMemberFrame1ManaBar:SetStatusBarTexture(texture)
-    PartyMemberFrame2HealthBar:SetStatusBarTexture(texture)
-    PartyMemberFrame2ManaBar:SetStatusBarTexture(texture)
-    PartyMemberFrame3HealthBar:SetStatusBarTexture(texture)
-    PartyMemberFrame3ManaBar:SetStatusBarTexture(texture)
-    PartyMemberFrame4HealthBar:SetStatusBarTexture(texture)
-    PartyMemberFrame4ManaBar:SetStatusBarTexture(texture)
-    MainMenuExpBar:SetStatusBarTexture(texture)
-    CastingBarFrame:SetStatusBarTexture(texture)
-    MirrorTimer1StatusBar:SetStatusBarTexture(texture)
-    MirrorTimer2StatusBar:SetStatusBarTexture(texture)
-    MirrorTimer3StatusBar:SetStatusBarTexture(texture)
-end
+--     PlayerFrameHealthBar:SetStatusBarTexture(texture)
+--     PlayerFrameManaBar:SetStatusBarTexture(texture)
+--     TargetFrameHealthBar:SetStatusBarTexture(texture)
+--     TargetFrameManaBar:SetStatusBarTexture(texture)
+--     TargetFrameToT.healthbar:SetStatusBarTexture(texture)
+--     PetFrameHealthBar:SetStatusBarTexture(texture)
+--     PartyMemberFrame1HealthBar:SetStatusBarTexture(texture)
+--     PartyMemberFrame1ManaBar:SetStatusBarTexture(texture)
+--     PartyMemberFrame2HealthBar:SetStatusBarTexture(texture)
+--     PartyMemberFrame2ManaBar:SetStatusBarTexture(texture)
+--     PartyMemberFrame3HealthBar:SetStatusBarTexture(texture)
+--     PartyMemberFrame3ManaBar:SetStatusBarTexture(texture)
+--     PartyMemberFrame4HealthBar:SetStatusBarTexture(texture)
+--     PartyMemberFrame4ManaBar:SetStatusBarTexture(texture)
+--     MainMenuExpBar:SetStatusBarTexture(texture)
+--     -- CastingBarFrame:SetStatusBarTexture(texture)
+--     MirrorTimer1StatusBar:SetStatusBarTexture(texture)
+--     MirrorTimer2StatusBar:SetStatusBarTexture(texture)
+--     MirrorTimer3StatusBar:SetStatusBarTexture(texture)
+-- end
 
 local function RegisterChatImprovements()
     -- Add more chat font sizes
@@ -355,10 +355,10 @@ end
 
 local function Init(self, event)
     if event == "PLAYER_LOGIN" then
-        FixCastingBarVisual()
+        -- FixCastingBarVisual()
         MoveAndScaleFrames()
         HideHitIndicators()
-        SetBarTextures()
+        -- SetBarTextures()
         RegisterHealthbarColors()
         RegisterChatImprovements()
         RegisterEnemyStatusDisplay()

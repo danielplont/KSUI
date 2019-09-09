@@ -5,5 +5,9 @@
 ## Author: Ishi
 
 align.lua
-worldmap.lua
+castbar.lua
 core.lua
+questlog.lua
+questloglevels.lua
+range.lua
+worldmap.lua
