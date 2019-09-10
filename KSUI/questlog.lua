@@ -1,43 +1,6 @@
 -- Configure this as a double-wide frame to stop the UIParent trampling on it
 UIPanelWindows["QuestLogFrame"] = { area = "override", pushable = 0, xoffset = -16, yoffset = 12, bottomClampOverride = 140+12, width = 724, height = 513, whileDead = 1 };
 
-local elvEnabled = IsAddOnLoaded("ElvUI")
-
-local function ElvSkinFrames()
-	if (not elvEnabled) then return end
-	
-	local E, L, V, P, G = unpack(ElvUI)
-	local S = E:GetModule('Skins')
-		
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true then return end
-	
-	local function LoadSkin()			
-		QuestLogFrame:Width(724)
-		
-		for i = 1, QUESTS_DISPLAYED do
-			local questLogTitle = _G['QuestLogTitle'..i]
-			questLogTitle:Width(320)
-		end
-		
-		QuestLogFrame:HookScript('OnShow', function()
-			QuestLogListScrollFrame:SetHeight(396);
-		
-			QuestLogDetailScrollFrame:SetHeight(396);
-			QuestLogDetailScrollFrameScrollBar:Point('TOPLEFT', QuestLogDetailScrollFrame, 'TOPRIGHT', 5, -16);
-			
-			QuestLogFrameAbandonButton:SetPoint('BOTTOMLEFT', 18, 14);
-
-			QuestFramePushQuestButton:ClearAllPoints();
-			QuestFramePushQuestButton:SetPoint('RIGHT', QuestFrameExitButton, 'LEFT', -2);
-						
-			QuestLogNoQuestsText:ClearAllPoints();
-			QuestLogNoQuestsText:SetPoint("CENTER", QuestLogFrame);
-		end)
-	end
-	
-	S:AddCallback('Quest', LoadSkin)
-end
-
 -- Widen the window, note that this size includes some pad on the right hand
 -- side after the scrollbars
 QuestLogFrame:SetWidth(724);
@@ -65,16 +28,6 @@ QuestLogListScrollFrame:SetHeight(362);
 local oldQuestsDisplayed = QUESTS_DISPLAYED;
 QUESTS_DISPLAYED = QUESTS_DISPLAYED + 17;
 
--- Show 3 more quests when ElvUI is present
-if (elvEnabled) then	
-	local E, L, V, P, G = unpack(ElvUI)
-	local S = E:GetModule('Skins')
-		
-	if E.private.skins.blizzard.enable == true and E.private.skins.blizzard.quest == true then
-		QUESTS_DISPLAYED = QUESTS_DISPLAYED + 3;
-	end
-end
-
 for i = oldQuestsDisplayed + 1, QUESTS_DISPLAYED do
     local button = CreateFrame("Button", "QuestLogTitle" .. i, QuestLogFrame, "QuestLogTitleButtonTemplate");
     button:SetID(i);
@@ -91,13 +44,13 @@ local xOffsets = { Left = 3; Middle = 259; Right = 515; }
 local yOffsets =  { Top = 0; Bot = -256; }
 
 local textures = {
-    TopLeft = "Interface\\AddOns\\WideQuestLog\\Icons\\DW_TopLeft";
-    TopMiddle = "Interface\\AddOns\\WideQuestLog\\Icons\\DW_TopMid";
-    TopRight = "Interface\\AddOns\\WideQuestLog\\Icons\\DW_TopRight";
+    TopLeft = "Interface\\AddOns\\KSUI\\Icons\\DW_TopLeft";
+    TopMiddle = "Interface\\AddOns\\KSUI\\Icons\\DW_TopMid";
+    TopRight = "Interface\\AddOns\\KSUI\\Icons\\DW_TopRight";
 
-    BotLeft = "Interface\\AddOns\\WideQuestLog\\Icons\\DW_BotLeft";
-    BotMiddle = "Interface\\AddOns\\WideQuestLog\\Icons\\DW_BotMid";
-    BotRight = "Interface\\AddOns\\WideQuestLog\\Icons\\DW_BotRight";
+    BotLeft = "Interface\\AddOns\\KSUI\\Icons\\DW_BotLeft";
+    BotMiddle = "Interface\\AddOns\\KSUI\\Icons\\DW_BotMid";
+    BotRight = "Interface\\AddOns\\KSUI\\Icons\\DW_BotRight";
 }
 
 local PATTERN = "^Interface\\QuestFrame\\UI%-QuestLog%-(([A-Z][a-z]+)([A-Z][a-z]+))$";
@@ -185,4 +138,28 @@ for _, t in ipairs(txset) do
     end
 end
 
-ElvSkinFrames()
+-- Questlog levels
+QuestLogFrame:HookScript('OnUpdate', function(self)
+	local numEntries, numQuests = GetNumQuestLogEntries();
+	
+	if (numEntries == 0) then return end
+	
+	local questIndex, questLogTitle, title, level, _, isHeader, questTextFormatted, questCheck, questCheckXOfs
+	for i = 1, QUESTS_DISPLAYED, 1 do
+		questIndex = i + FauxScrollFrame_GetOffset(QuestLogListScrollFrame);
+		
+		if (questIndex <= numEntries) then
+			questLogTitle = _G["QuestLogTitle"..i]
+			questCheck = _G["QuestLogTitle"..i.."Check"]
+			title, level, _, isHeader = GetQuestLogTitle(questIndex)
+			
+			if (not isHeader) then
+				questTextFormatted = format("  [%d] %s", level, title)
+				questLogTitle:SetText(questTextFormatted)
+				QuestLogDummyText:SetText(questTextFormatted)
+			end
+
+			questCheck:SetPoint("LEFT", questLogTitle, "LEFT", QuestLogDummyText:GetWidth()+24, 0);
+		end
+	end
+end)

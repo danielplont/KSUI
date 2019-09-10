@@ -1,5 +1,5 @@
 ## Interface: 11302
-## Version: 0.4
+## Version: 0.5
 ## Title: KSUI
 ## Notes: Default UI Improvements
 ## Author: Ishi
@@ -8,7 +8,7 @@ align.lua
 castbar.lua
 core.lua
 questlog.lua
-questloglevels.lua
 range.lua
 reload.lua
+tracker.lua
 worldmap.lua
