@@ -8,6 +8,7 @@ align.lua
 castbar.lua
 core.lua
 questlog.lua
+mark.xml
 range.lua
 reload.lua
 tracker.lua
