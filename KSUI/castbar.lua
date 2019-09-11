@@ -1,5 +1,5 @@
 -- Player castbar
-TargetFrameSpellBar:SetScale(1.1)
+
 CastingBarFrame:SetScale(1.2)
 CastingBarFrame:SetSize(150, 10)
 CastingBarFrame:ClearAllPoints()
@@ -23,11 +23,6 @@ CastingBarFrame.timer:SetFont("Fonts\\ARIALN.ttf", 13, "THINOUTLINE")
 CastingBarFrame.timer:SetPoint("RIGHT", CastingBarFrame, "RIGHT", 24, 0)
 CastingBarFrame.update = 0.1
 
-TargetFrameSpellBar.timer = TargetFrameSpellBar:CreateFontString(nil)
-TargetFrameSpellBar.timer:SetFont("Fonts\\ARIALN.ttf", 13, "THINOUTLINE")
-TargetFrameSpellBar.timer:SetPoint("RIGHT", TargetFrameSpellBar, "RIGHT", 24, 0)
-TargetFrameSpellBar.update = 0.1
-
 local function CastingBarFrame_OnUpdate_Hook(self, elapsed)
 	if not self.timer then
 		return
@@ -47,4 +42,3 @@ local function CastingBarFrame_OnUpdate_Hook(self, elapsed)
 end
 
 CastingBarFrame:HookScript("OnUpdate", CastingBarFrame_OnUpdate_Hook)
-TargetFrameSpellBar:HookScript("OnUpdate", CastingBarFrame_OnUpdate_Hook)
