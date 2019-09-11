@@ -1,3 +1,5 @@
+-- BaudMark
+
 local KeyHeld;
 
 function Mark_OnLoad(self)
@@ -21,10 +23,10 @@ function Mark_OnLoad(self)
 		Button:SetScript("OnEnter", MarkButton_OnEnter);
 		Button:SetScript("OnLeave", MarkButton_OnLeave);
 		if(Index==0)then
-		  Button:SetPoint("CENTER");
+			Button:SetPoint("CENTER");
 		else
-		  Angle = 360 / 8 * Index;
-		  Button:SetPoint("CENTER", sin(Angle) * 50, cos(Angle) * 50);
+			Angle = 360 / 8 * Index;
+			Button:SetPoint("CENTER", sin(Angle) * 50, cos(Angle) * 50);
 		end
 	end
 
