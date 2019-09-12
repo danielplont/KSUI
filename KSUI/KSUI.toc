@@ -9,7 +9,6 @@ castbar.lua
 core.lua
 hoverbind.lua
 questlog.lua
-mark.xml
 range.lua
 reload.lua
 tracker.lua

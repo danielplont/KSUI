@@ -1,5 +1,0 @@
-<Bindings>
-    <Binding name="Mark" header="Mark" runOnUp="true">
-        Mark_HotkeyPressed(keystate)
-    </Binding>
-</Bindings>
