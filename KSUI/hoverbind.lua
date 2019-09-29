@@ -296,5 +296,4 @@ SlashCmdList.MOUSEOVERBIND = function()
 	end
 end
 
-SLASH_MOUSEOVERBIND1 = "/hvb"
-SLASH_MOUSEOVERBIND2 = "/hoverbind"
+SLASH_MOUSEOVERBIND1 = "/bind"

@@ -4,9 +4,10 @@ local ADDON_NAME = ...
 
 -- Frame positions
 local FRAME_POSITIONS = {
-    PLAYER = {X = -450, Y = 300},
-    TARGET = {X = -180, Y = 300},
-    PARTY  = {X = -450, Y = 200}
+
+    PLAYER = {X = -240, Y = -240},
+    TARGET = {X =  240, Y = -240},
+    PARTY  = {X = -400, Y =  500}
 }
 
 local CHAT_EVENTS = {
@@ -295,6 +296,23 @@ local function RegisterVendorGreys()
     f:SetScript("OnEvent", SellTrash)
 end
 
+local function RegisterCombatNotifications()
+    UIErrorsFrame:Show()
+
+    local function NotifyCombatChange(self, event)
+        if event == "PLAYER_REGEN_DISABLED" then
+            UIErrorsFrame:AddMessage("Entered combat", 0, 100, 255, 3)
+        elseif event == "PLAYER_REGEN_ENABLED" then
+            UIErrorsFrame:AddMessage("Left combat", 0, 100, 255, 3)
+        end
+    end
+
+    local f = CreateFrame("Frame")
+    f:RegisterEvent("PLAYER_REGEN_DISABLED")
+    f:RegisterEvent("PLAYER_REGEN_ENABLED")
+    f:SetScript("OnEvent", NotifyCombatChange)
+end
+
 local function Init(self, event)
     if event == "PLAYER_LOGIN" then
         MoveAndScaleFrames()
@@ -303,6 +321,7 @@ local function Init(self, event)
         RegisterChatImprovements()
         RegisterEnemyStatusDisplay()
         RegisterVendorGreys()
+        RegisterCombatNotifications()
 
         DEFAULT_CHAT_FRAME:AddMessage(ADDON_NAME.." loaded")
     end
