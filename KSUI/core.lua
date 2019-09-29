@@ -4,9 +4,8 @@ local ADDON_NAME = ...
 
 -- Frame positions
 local FRAME_POSITIONS = {
-
-    PLAYER = {X = -240, Y = -240},
-    TARGET = {X =  240, Y = -240},
+    PLAYER = {X = -220, Y = -200},
+    TARGET = {X =  220, Y = -200},
     PARTY  = {X = -400, Y =  500}
 }
 
